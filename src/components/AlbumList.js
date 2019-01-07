@@ -1,22 +1,29 @@
 //imports
 
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+import AlbumDetail from './AlbumDetail';
 
 class AlbumList extends Component {
     //esta es la forma de inicializar state. esto es una class level property 
-    //paso1: default state seteado
+    //default state seteado.
     state = { albums: [] };
-    //paso2: actualizar
-
+   
     componentWillMount() {
       this.fetchData();
     }
 
+    renderAlbums() {
+        return this.state.albums.map(album => 
+            //<AlbumDetail key={album.title}>{album.title}</AlbumDetail>
+            <AlbumDetail key={album.title} albumProp={album} />
+        );
+    }
+
     fetchData = () => 
       fetch('https://rallycoding.herokuapp.com/api/music_albums')
-        .then(response => JSON.parse(response))
-        .then(data => this.setState({ albums: data }));
+        .then(response => response.json())
+        .then(responsedata => this.setState({ albums: responsedata }));
     /*
     fetchData = async () => {
         const response = await fetch('https://rallycoding.herokuapp.com/api/music_albums');
@@ -28,7 +35,7 @@ class AlbumList extends Component {
 
         return (
             <View>
-                <Text>Zarasasasa</Text>
+                {this.renderAlbums()}
             </View>
         );
     }
