@@ -8,7 +8,7 @@ import AlbumList from './src/components/AlbumList';
 /*crear un componente, un componente es una funcion de javascript que retorna JSX*/
 /*esta sintaxis se corresponde a JSX*/
 const App = () => (
-  <View>
+  <View style={{ flex: 1 }}>
     <Header headerText={'Albums'} />
     <AlbumList />
   </View>
