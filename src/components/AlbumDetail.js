@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, Linking } from 'react-native';
 import Card from './Card';
 import CardSection from './CardSection';
 import Button from './Button';
@@ -8,7 +8,7 @@ import Button from './Button';
 no van a ser necesarios ciclos de vida ni state*/
 
 const AlbumDetail = ({ album }) => {
-    const { title, artist, thumbnail_image, image } = album;
+    const { title, artist, thumbnail_image, image, url } = album;
     const { albumInfoStyle, 
             thumbnailImageStyle, 
             thumbnailImageContainerStyle,
@@ -27,13 +27,14 @@ const AlbumDetail = ({ album }) => {
                     <Text>{artist}</Text>
                 </View>
             </CardSection>
-            
             <CardSection>
-                <Image source={{ uri: image }} style={imageStyle} />
+                <Image source={{ uri: image }} style={imageStyle} /> 
             </CardSection>
-
             <CardSection>
-                <Button />
+                <Button whenPressed={() => Linking.openURL(url)}>
+                    Buy now
+                </Button>
+                {/* podria llamarse onPress, no hace referencia al handler */}
             </CardSection>
         </Card>
     )
@@ -43,7 +44,7 @@ const styles = {
 
     albumInfoStyle: {
         flexDirection: 'column',
-        justifyContent:'space-around'
+        justifyContent: 'space-around'
     },
     albumInfoTextStyle: {
         fontSize: 18
